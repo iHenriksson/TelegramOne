@@ -1,20 +1,12 @@
-import os
-
-TOKEN = os.getenv("BOT_TOKEN")
-if not TOKEN:
-    raise RuntimeError("BOT_TOKEN is not set")
-
-print("BOT IS STARTING...")
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
-import os
 
-# گرفتن توکن از Environment Variable
-TOKEN = os.getenv("BOT_TOKEN")
+# :red_circle: توکن باتت رو اینجا قرار بده
+TOKEN = "8242374945:AAE5IS2PQgrqNNruwkR3BWEN8tyLNdINWkk"
 
-START_MESSAGE = """سلام :wave:
-به بات ما خوش اومدی!
-از منوی زیر یکی از گزینه‌ها رو انتخاب کن :point_down:"""
+# اگر توکن رو نذاشتی، برنامه اجرا نشه
+if TOKEN == "PASTE_YOUR_BOT_TOKEN_HERE" or not TOKEN:
+    raise RuntimeError(":x: Bot token is not set")
 
 keyboard = [
     [":pushpin: راهنما", ":information_source: درباره ما"],
@@ -48,6 +40,6 @@ async def handle_buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 app = ApplicationBuilder().token(TOKEN).build()
 app.add_handler(CommandHandler("start", start))
 app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_buttons))
+
+print("🤖 Bot is running...")
 app.run_polling()
-
-
